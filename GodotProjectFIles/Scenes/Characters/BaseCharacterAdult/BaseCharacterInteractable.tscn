@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/InteractionPrompt.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Characters/BaseCharacterAdult/BaseCharacterInteractable.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 465.0
+
+[node name="BaseCharacterInteractable" type="Area2D"]
+collision_layer = 2
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0, 0, 0, 0.627451 )
+position = Vector2( 0, 325 )
+z_index = -1
+shape = SubResource( 1 )
+
+[node name="InteractionPrompt" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -74.5851 )
+scale = Vector2( 0.16388, 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_BaseCharacterInteractable_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_BaseCharacterInteractable_area_exited"]

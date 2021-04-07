@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Images/MainChar/InteractionPrompt.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/InteractionPrompt.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Rotate"
+length = 0.6
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( -1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "bob"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -100 ) ]
+}
+
+[sub_resource type="AnimationNodeAdd2" id=3]
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Rotate"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "bob"
+
+[sub_resource type="AnimationNodeTimeScale" id=6]
+
+[sub_resource type="AnimationNodeBlendTree" id=7]
+graph_offset = Vector2( -662.006, -55.38 )
+nodes/Add2/node = SubResource( 3 )
+nodes/Add2/position = Vector2( 140, 200 )
+nodes/Animation/node = SubResource( 5 )
+nodes/Animation/position = Vector2( -140, 70 )
+"nodes/Animation 2/node" = SubResource( 4 )
+"nodes/Animation 2/position" = Vector2( -320, 240 )
+nodes/TimeScale/node = SubResource( 6 )
+nodes/TimeScale/position = Vector2( -130, 240 )
+nodes/output/position = Vector2( 360, 210 )
+node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation", "Add2", 1, "TimeScale", "TimeScale", 0, "Animation 2" ]
+
+[node name="InteractionPrompt" type="Sprite"]
+position = Vector2( 0, -10.4305 )
+scale = Vector2( -0.263799, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -130 )
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Rotate = SubResource( 1 )
+anims/bob = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 7 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Add2/add_amount = 0.97
+parameters/TimeScale/scale = 0.05
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

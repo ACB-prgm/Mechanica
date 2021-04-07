@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Characters/Main/MainChar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Images/Buildings/Dad'sShop/DadsShop_Exterior.png" type="Texture" id=2]
+[ext_resource path="res://Images/Buildings/Dad'sShop/DadsShop_RoomExterior.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Testing/World.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 349.208, 72.873 )
+
+[node name="World" type="Node2D"]
+position = Vector2( -1.54077, 0 )
+script = ExtResource( 4 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="MainChar" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -668.835, 1301.57 )
+
+[node name="DadsShopEntrances" type="StaticBody2D" parent="YSort"]
+position = Vector2( 2.38916, 0 )
+collision_layer = 8
+
+[node name="Room" type="Sprite" parent="YSort/DadsShopEntrances"]
+texture = ExtResource( 3 )
+
+[node name="Shop" type="Sprite" parent="YSort/DadsShopEntrances"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/DadsShopEntrances"]
+polygon = PoolVector2Array( -866.869, 956.209, -969.613, 1087.63, -2498.83, 1054.18, -2486.89, -44.9519, -1710.33, -286.282, 2846.27, -374.69, 2882.11, 765.057, 2662.28, 860.633, 2041.04, 865.412, 2045.82, 1042.23, 1646.79, 1104.35, -59.2493, 1104.35, -118.985, 1176.03, -221.729, 1173.65, -221.729, 805.677, -854.922, 808.066 )
+
+[node name="ShopEntrance" type="Area2D" parent="YSort/DadsShopEntrances"]
+position = Vector2( -575.847, 874.523 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/DadsShopEntrances/ShopEntrance"]
+position = Vector2( 31.4841, -1.57422 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="YSort/DadsShopEntrances/ShopEntrance" to="." method="_on_ShopEntrance_body_entered"]
