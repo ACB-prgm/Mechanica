@@ -26,6 +26,7 @@ func parse_begin(object):
 		
 		var preview = Label.new()
 		object.dialogue_preview = preview
+		preview.set_autowrap(true)
 		add_custom_control(preview)
 		
 		if object.has_method("load_dialogue_data"):

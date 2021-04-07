@@ -9,29 +9,27 @@
 script = ExtResource( 2 )
 
 [node name="AnimatedSkeleton" parent="." index="1"]
-dialogue = [ "Hello!", "I am your father!" ]
 interactable = true
-dialogue_key_idx = 0
 
 [node name="BackFoot" parent="AnimatedSkeleton" index="0"]
-rotation = 0.0601142
+rotation = 0.190099
 
 [node name="BackArm" parent="AnimatedSkeleton" index="1"]
-position = Vector2( 68.0666, -19.6889 )
+position = Vector2( 72.5351, -20.4953 )
 
 [node name="Torso" parent="AnimatedSkeleton" index="2"]
-position = Vector2( 2.06658, -0.688858 )
-rotation = -0.0150286
+position = Vector2( 6.53513, -2.17838 )
+rotation = -0.0475248
 
 [node name="Head" parent="AnimatedSkeleton" index="3"]
-position = Vector2( 12.0666, -56.6889 )
-rotation = -0.0150286
+position = Vector2( 16.5351, -58.1784 )
+rotation = -0.0475248
 
 [node name="FrontArm" parent="AnimatedSkeleton" index="4"]
-position = Vector2( -58.6223, -32 )
+position = Vector2( -55.6432, -31.3169 )
 
 [node name="FrontFoot" parent="AnimatedSkeleton" index="5"]
-rotation = 0.0601142
+rotation = 0.190099
 
 [node name="AnimationTree" parent="." index="3"]
 parameters/playback = SubResource( 1 )

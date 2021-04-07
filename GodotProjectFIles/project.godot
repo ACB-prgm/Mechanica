@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Dialogue",
 "language": "GDScript",
 "path": "res://FunctionalScripts/Dialogue.gd"
+}, {
+"base": "PanelContainer",
+"class": "JsonDock",
+"language": "GDScript",
+"path": "res://addons/json_editor/json_dock.gd"
 } ]
 _global_script_class_icons={
-"Dialogue": ""
+"Dialogue": "",
+"JsonDock": ""
 }
 
 [application]
@@ -45,7 +51,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "dialogue_plugin" )
+enabled=PoolStringArray( "dialogue_plugin", "json_editor" )
 
 [importer_defaults]
 

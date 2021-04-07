@@ -17,7 +17,7 @@ onready var SOUNDS = {
 	}
 }
 
-export var has_turned: bool = false
+export var facing_left: bool = false
 
 var dustKick = preload("res://Scenes/Characters/Main/DustKick.tscn")
 var input_vector: Vector2 = Vector2.ZERO
@@ -25,6 +25,7 @@ var velocity: Vector2 = Vector2.ZERO
 
 
 func _ready():
+	Globals.player = self
 	animTree.active = true
 	randomize()
 
@@ -33,6 +34,7 @@ func _physics_process(_delta):
 	movement()
 
 
+ # MOVEMENT ————————————————————————————————————————————————————————————————————
 func movement():
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -42,9 +44,9 @@ func movement():
 		velocity += input_vector * ACCELERATION
 		velocity = velocity.clamped(MAX_VEL)
 		
-		if has_turned and input_vector.x >= 0:
+		if facing_left and input_vector.x >= 0:
 			animPlayer.play("turn_right")
-		elif !has_turned and input_vector.x < 0:
+		elif !facing_left and input_vector.x < 0:
 			animPlayer.play("turn_left")
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION)
@@ -55,6 +57,8 @@ func movement():
 	animTree.set("parameters/movement/blend_position", input_vector)
 	
 
+
+# ANIMATIONS ———————————————————————————————————————————————————————————————————
 func spawn_dustKick() -> void:
 	var dir = animSkeleton.scale.x
 	var ins_dust = dustKick.instance()
@@ -62,6 +66,7 @@ func spawn_dustKick() -> void:
 	ins_dust.dir = input_vector
 	ins_dust.scale.x = dir
 	get_parent().add_child(ins_dust)
+
 
 func play_sound(sound:String):
 	var player = SOUNDS.get(sound).get("player")
@@ -71,3 +76,18 @@ func play_sound(sound:String):
 	player.pitch_scale = original_pitch + rand_range(-pitch_range, pitch_range)
 	player.play()
 
+
+func dialogue_freeze(pause:bool, character=null):
+	if pause:
+		set_physics_process(false)
+		animTree.set("parameters/movement/blend_position", Vector2.ZERO)
+		
+		var dir_to_char = global_position.direction_to(character.global_position)
+		if facing_left and dir_to_char.x >= 0:
+			animPlayer.play("turn_right")
+		elif !facing_left and dir_to_char.x < 0:
+			animPlayer.play("turn_left")
+		
+		
+	else:
+		set_physics_process(true)

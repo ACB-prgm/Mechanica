@@ -34,7 +34,6 @@ margin_top = 25.0
 margin_right = -250.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Does anyone know how to actually go about this? "
 autowrap = true
 clip_text = true
 __meta__ = {

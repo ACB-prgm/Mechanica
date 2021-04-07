@@ -803,7 +803,7 @@ nodes/Animation/node = SubResource( 8 )
 nodes/Animation/position = Vector2( -110, 140 )
 nodes/TimeScale/node = SubResource( 9 )
 nodes/TimeScale/position = Vector2( 110, 130 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=11]
 animation = "walk"
@@ -816,7 +816,7 @@ nodes/Animation/node = SubResource( 11 )
 nodes/Animation/position = Vector2( -90, 140 )
 nodes/TimeScale/node = SubResource( 12 )
 nodes/TimeScale/position = Vector2( 140.825, 160 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk"
@@ -829,7 +829,7 @@ nodes/Animation/node = SubResource( 14 )
 nodes/Animation/position = Vector2( -230, 140 )
 nodes/TimeScale/node = SubResource( 15 )
 nodes/TimeScale/position = Vector2( 59.825, 154.667 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=17]
 animation = "idle"
@@ -845,7 +845,7 @@ nodes/Animation/node = SubResource( 18 )
 nodes/Animation/position = Vector2( -130, 150 )
 nodes/TimeScale/node = SubResource( 19 )
 nodes/TimeScale/position = Vector2( 142.85, 201.254 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=21]
 blend_point_0/node = SubResource( 10 )
@@ -878,20 +878,19 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSkeleton" type="Node2D" parent="."]
 script = ExtResource( 3 )
-dialogue = [ "Hello!", "I am your father!" ]
+dialogue = [ "Well, good morning sunshine!", "Nice of you to join me.", "That mech over there needs to have it's AI's focus reset", "Head over to the computer and give it a shot would ya?", [ "CHANGE_DIALOGUE", "Father_002" ] ]
 _texture = ExtResource( 1 )
 dialogue_key_idx = 0
 
 [node name="BackFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 64, 108 )
-rotation = 0.16657
 texture = ExtResource( 1 )
 offset = Vector2( -20, -12 )
 region_enabled = true
 region_rect = Rect2( 92, 374, 108, 74 )
 
 [node name="BackArm" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( 71.7262, -20.1245 )
+position = Vector2( 66, -18.1144 )
 rotation = -0.523599
 scale = Vector2( -1, 1 )
 texture = ExtResource( 1 )
@@ -900,15 +899,12 @@ region_enabled = true
 region_rect = Rect2( 364, 360, 64, 108 )
 
 [node name="Torso" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( 5.72625, -1.90875 )
-rotation = -0.0416425
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 304, 72, 173, 188 )
 
 [node name="Head" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( 15.7262, -57.9087 )
-rotation = -0.0416425
+position = Vector2( 10, -56 )
 texture = ExtResource( 1 )
 offset = Vector2( -9.5, -120.57 )
 region_enabled = true
@@ -927,7 +923,7 @@ region_enabled = true
 region_rect = Rect2( 249, 321, 45, 15 )
 
 [node name="FrontArm" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( -56.1825, -31.2158 )
+position = Vector2( -60, -31.1144 )
 rotation = 0.349066
 texture = ExtResource( 1 )
 offset = Vector2( 0.3, 32.756 )
@@ -936,7 +932,6 @@ region_rect = Rect2( 364, 360, 64, 108 )
 
 [node name="FrontFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 12, 126 )
-rotation = 0.16657
 texture = ExtResource( 1 )
 offset = Vector2( -20, -12 )
 region_enabled = true

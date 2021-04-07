@@ -325,7 +325,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( -1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:has_turned")
+tracks/1/path = NodePath(".:facing_left")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -354,7 +354,7 @@ tracks/0/keys = {
 "values": [ Vector2( -1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:has_turned")
+tracks/1/path = NodePath(".:facing_left")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -645,7 +645,7 @@ nodes/Animation/node = SubResource( 7 )
 nodes/Animation/position = Vector2( -110, 140 )
 nodes/TimeScale/node = SubResource( 8 )
 nodes/TimeScale/position = Vector2( 110, 130 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=10]
 animation = "walk"
@@ -658,7 +658,7 @@ nodes/Animation/node = SubResource( 10 )
 nodes/Animation/position = Vector2( -90, 140 )
 nodes/TimeScale/node = SubResource( 11 )
 nodes/TimeScale/position = Vector2( 140.825, 160 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "walk"
@@ -671,7 +671,7 @@ nodes/Animation/node = SubResource( 13 )
 nodes/Animation/position = Vector2( -230, 140 )
 nodes/TimeScale/node = SubResource( 14 )
 nodes/TimeScale/position = Vector2( 59.825, 154.667 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=16]
 animation = "idle"
@@ -687,7 +687,7 @@ nodes/Animation/node = SubResource( 17 )
 nodes/Animation/position = Vector2( -130, 150 )
 nodes/TimeScale/node = SubResource( 18 )
 nodes/TimeScale/position = Vector2( 142.85, 201.254 )
-node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=20]
 blend_point_0/node = SubResource( 9 )
@@ -716,6 +716,7 @@ radius = 464.894
 [node name="MainChar" type="KinematicBody2D"]
 collision_mask = 14
 script = ExtResource( 1 )
+facing_left = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 0, 1, 1, 0.545098 )
@@ -725,6 +726,7 @@ z_index = 1
 shape = SubResource( 1 )
 
 [node name="AnimatedSkeleton" type="Node2D" parent="."]
+scale = Vector2( -1, 1 )
 
 [node name="BackFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 44.123, 5.51239 )
@@ -818,7 +820,7 @@ editor_draw_drag_margin = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 4 )
-volume_db = -20.0
+volume_db = -10.0
 pitch_scale = 0.8
 bus = "SoundEffects"
 

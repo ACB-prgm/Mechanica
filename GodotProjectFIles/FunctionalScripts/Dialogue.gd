@@ -1,9 +1,8 @@
 extends Node
 class_name Dialogue
 
-const SAVE_DIR = 'user://Dialogue_data/'
+const SAVE_DIR = 'res://FunctionalScripts/'
 const dialogue_JSON_path = SAVE_DIR + 'dialogue.JSON'
-
 
 #static func save_dialogue_info(dialogue_info: Dictionary):
 #	var dir = Directory.new()
