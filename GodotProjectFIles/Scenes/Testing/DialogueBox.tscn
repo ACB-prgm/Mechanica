@@ -1,15 +1,15 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Fonts/DroidSans.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Scenes/Testing/TextboxText.gd" type="Script" id=2]
-[ext_resource path="res://Sounds/DialogueBlip_02.ogg" type="AudioStream" id=3]
-[ext_resource path="res://Scenes/Characters/BaseCharacterAdult/Father.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sounds/DialogueBlip_02.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Fonts/DroidSans.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Testing/DialogueBox.gd" type="Script" id=3]
+[ext_resource path="res://Images/Popups/DialogueBoxRough.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect"]
+[node name="DialogueBox" type="TextureRect"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -18,7 +18,10 @@ margin_left = -1750.0
 margin_top = -446.0
 margin_right = 1750.0
 margin_bottom = -96.0
-script = ExtResource( 2 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -26,6 +29,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 250.0
+margin_top = 25.0
+margin_right = -250.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Does anyone know how to actually go about this? "
@@ -36,8 +42,6 @@ __meta__ = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 1 )
 volume_db = -5.0
 pitch_scale = 2.0
-
-[node name="Father" parent="." instance=ExtResource( 4 )]

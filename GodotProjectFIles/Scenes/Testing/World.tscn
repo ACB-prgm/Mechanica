@@ -31,7 +31,7 @@ texture = ExtResource( 2 )
 polygon = PoolVector2Array( -866.869, 956.209, -969.613, 1087.63, -2498.83, 1054.18, -2486.89, -44.9519, -1710.33, -286.282, 2846.27, -374.69, 2882.11, 765.057, 2662.28, 860.633, 2041.04, 865.412, 2045.82, 1042.23, 1646.79, 1104.35, -59.2493, 1104.35, -118.985, 1176.03, -221.729, 1173.65, -221.729, 805.677, -854.922, 808.066 )
 
 [node name="ShopEntrance" type="Area2D" parent="YSort/DadsShopEntrances"]
-position = Vector2( -575.847, 874.523 )
+position = Vector2( -607.618, 1103.66 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/DadsShopEntrances/ShopEntrance"]

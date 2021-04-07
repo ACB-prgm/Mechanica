@@ -1,10 +1,14 @@
-extends ColorRect
+extends TextureRect
 
 onready var label = $Label
 
+signal dialogue_played
 
-func _ready():
+
+
+func play_dialogue(dialogue: String) -> void:
 	randomize()
+	label.text = dialogue
 	label.visible_characters = 0
 	var chars = label.get_total_character_count()
 	
@@ -13,5 +17,5 @@ func _ready():
 		label.visible_characters += 1
 		$AudioStreamPlayer.pitch_scale = 2 + rand_range(-.5, .5)
 		$AudioStreamPlayer.play()
-		
-		
+	
+	emit_signal("dialogue_played")

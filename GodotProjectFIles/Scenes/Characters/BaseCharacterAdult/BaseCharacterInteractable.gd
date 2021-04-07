@@ -16,12 +16,12 @@ func _physics_process(_delta):
 		emit_signal("interacted")
 
 
-func _on_BaseCharacterInteractable_area_entered(area):
+func _on_BaseCharacterInteractable_area_entered(_area):
 	prompt.show_prompt()
 	set_physics_process(true)
 
 
-func _on_BaseCharacterInteractable_area_exited(area):
+func _on_BaseCharacterInteractable_area_exited(_area):
 	prompt.hide_prompt()
 	PopupLayer.hide_popup()
 	set_physics_process(false)

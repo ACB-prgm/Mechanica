@@ -59,11 +59,11 @@ nodes/Animation/position = Vector2( -140, 70 )
 nodes/TimeScale/node = SubResource( 6 )
 nodes/TimeScale/position = Vector2( -130, 240 )
 nodes/output/position = Vector2( 360, 210 )
-node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation", "Add2", 1, "TimeScale", "TimeScale", 0, "Animation 2" ]
+node_connections = [ "Add2", 0, "Animation", "Add2", 1, "TimeScale", "TimeScale", 0, "Animation 2", "output", 0, "Add2" ]
 
 [node name="InteractionPrompt" type="Sprite"]
-position = Vector2( 0, -10.4305 )
-scale = Vector2( -0.263799, 1 )
+position = Vector2( 0, -29.7262 )
+scale = Vector2( -0.135194, 1 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -130 )
 script = ExtResource( 2 )
@@ -80,5 +80,3 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Add2/add_amount = 0.97
 parameters/TimeScale/scale = 0.05
-
-[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
