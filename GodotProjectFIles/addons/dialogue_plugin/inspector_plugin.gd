@@ -13,7 +13,7 @@ func parse_begin(object):
 		add_custom_control(Dialogue_label)
 		
 		var dropdown = OptionButton.new()
-		for key in Dialogue.load_dialogue_info().keys():
+		for key in Dialogue.dict.keys():
 			dropdown.add_item(key)
 		dropdown.connect("item_selected", object, "_on_dialogue_option_selected")
 		add_custom_control(dropdown)

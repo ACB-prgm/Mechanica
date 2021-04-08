@@ -9,18 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Dialogue",
-"language": "GDScript",
-"path": "res://FunctionalScripts/Dialogue.gd"
-}, {
 "base": "PanelContainer",
 "class": "JsonDock",
 "language": "GDScript",
 "path": "res://addons/json_editor/json_dock.gd"
 } ]
 _global_script_class_icons={
-"Dialogue": "",
 "JsonDock": ""
 }
 
@@ -35,6 +29,7 @@ config/icon="res://icon.png"
 Globals="*res://Globals.gd"
 PopupLayer="*res://Scenes/Characters/InteractionPrompts/PopupLayer.tscn"
 Transitioner="*res://Scenes/Singletons/Transitioner.tscn"
+Dialogue="*res://FunctionalScripts/Dialogue.gd"
 
 [debug]
 
@@ -51,7 +46,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "dialogue_plugin", "json_editor" )
+enabled=PoolStringArray( "dialogue_plugin" )
 
 [importer_defaults]
 

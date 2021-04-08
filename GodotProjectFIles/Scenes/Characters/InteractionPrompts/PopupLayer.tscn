@@ -86,3 +86,5 @@ __meta__ = {
 }
 
 [node name="DialogueBox" parent="." instance=ExtResource( 4 )]
+
+[connection signal="dialogue_box_finished" from="DialogueBox" to="." method="_on_DialogueBox_dialogue_box_finished"]

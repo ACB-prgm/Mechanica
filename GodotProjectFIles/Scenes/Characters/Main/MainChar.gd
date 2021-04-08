@@ -79,6 +79,7 @@ func play_sound(sound:String):
 
 func dialogue_freeze(pause:bool, character=null):
 	if pause:
+		velocity = Vector2.ZERO
 		set_physics_process(false)
 		animTree.set("parameters/movement/blend_position", Vector2.ZERO)
 		

@@ -8,12 +8,12 @@ onready var bodyLabel = $Popup/VBoxContainer/Body
 onready var dialogueBox = $DialogueBox
 
 var current_dialogue
-var displaying_dialogue: bool = false
+var current_dialogue_playing: bool = false
+var dialogue_playing: bool = false
 
 
 func _ready():
 	popup.hide()
-	dialogueBox.hide()
 
 
 # POPUPS ———————————————————————————————————————————————————————————————————————
@@ -43,27 +43,41 @@ func hide_popup():
 
 # DIALOGUE —————————————————————————————————————————————————————————————————————
 func display_dialogue(dialogue: Array, character=null) -> void:
-	if !current_dialogue and displaying_dialogue:
-		displaying_dialogue = false
-		dialogueBox.hide()
+	if dialogue_playing:
+		dialogueBox.finish_playing_early()
+	
+	elif !current_dialogue and current_dialogue_playing:
+		# Exit dialogue when all finished and player interacts
+		current_dialogue_playing = false
+		dialogueBox._hide()
 		Globals.player.dialogue_freeze(false)
 	
-	elif displaying_dialogue:
-		var item = current_dialogue[0]
+	elif current_dialogue_playing:
 		# play next dialogue
+		var item = current_dialogue[0]
 		if typeof(item) == TYPE_STRING:
 			dialogueBox.play_dialogue(item)
+			current_dialogue.remove(0)
+			dialogue_playing = true
 		elif typeof(item) == TYPE_ARRAY:
 			match item[0]:
 				"CHANGE_DIALOGUE":
-					print("changing")
-					character.dialogue = Dialogue.load_dialogue_info().get(item[1])
-		current_dialogue.remove(0)
+					character.dialogue = Dialogue.dict.get(item[1])
+					current_dialogue.remove(0)
+					display_dialogue([], character)
+		
 	
-	else: #!current_dialogue and !displaying_dialogue
+	else:
 		# start displaying dialogue
 		Globals.player.dialogue_freeze(true, character)
-		displaying_dialogue = true
+		if !dialogueBox.is_connected("dialogue_box_started", character, "_on_dialogue_box_started"):
+			dialogueBox.connect("dialogue_box_started", character, "_on_dialogue_box_started")
+			dialogueBox.connect("dialogue_box_finished", character, "_on_dialogue_box_finished")
+		current_dialogue_playing = true
 		current_dialogue = dialogue.duplicate(true)
-		dialogueBox.show()
-		display_dialogue([])
+		dialogueBox._show()
+		display_dialogue([], character)
+
+
+func _on_DialogueBox_dialogue_box_finished():
+	dialogue_playing = false

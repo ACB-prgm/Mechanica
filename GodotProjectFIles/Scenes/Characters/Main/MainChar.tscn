@@ -820,7 +820,6 @@ editor_draw_drag_margin = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 4 )
-volume_db = -10.0
 pitch_scale = 0.8
 bus = "SoundEffects"
 
