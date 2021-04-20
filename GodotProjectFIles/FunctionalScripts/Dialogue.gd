@@ -1,7 +1,7 @@
 extends Node
 
 
-var dict: Dictionary = {
+const dict: Dictionary = {
 	"Father_001": [
 		"Well, good morning sunshine!",
 		"Nice of you to join me!",
@@ -19,3 +19,7 @@ var dict: Dictionary = {
 		["CHANGE_DIALOGUE", "Father_002"]
 	]
 }
+
+
+func _print(arg):
+	print(arg)

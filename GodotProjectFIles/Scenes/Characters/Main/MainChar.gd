@@ -77,17 +77,18 @@ func play_sound(sound:String):
 	player.play()
 
 
-func dialogue_freeze(pause:bool, character=null):
+func interaction_freeze(pause:bool, character=null):
 	if pause:
 		velocity = Vector2.ZERO
 		set_physics_process(false)
 		animTree.set("parameters/movement/blend_position", Vector2.ZERO)
 		
-		var dir_to_char = global_position.direction_to(character.global_position)
-		if facing_left and dir_to_char.x >= 0:
-			animPlayer.play("turn_right")
-		elif !facing_left and dir_to_char.x < 0:
-			animPlayer.play("turn_left")
+		if character:
+			var dir_to_char = global_position.direction_to(character.global_position)
+			if facing_left and dir_to_char.x >= 0:
+				animPlayer.play("turn_right")
+			elif !facing_left and dir_to_char.x < 0:
+				animPlayer.play("turn_left")
 		
 		
 	else:

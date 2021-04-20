@@ -72,6 +72,7 @@ func set_interactable(new_value):
 		interactable_INS.connect("area_exited", interactable_INS, "_on_BaseCharacterInteractable_area_exited")
 		interactable_INS.position = Vector2(0,-325)
 		add_child(interactable_INS)
+#		interactable_INS.set_owner(get_tree())
 	elif interactable_INS:
 		interactable_INS.free()
 

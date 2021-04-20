@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Images/Popups/MechEditor/BasicBorder.png" type="Texture" id=1]
+[ext_resource path="res://Fonts/BioSans_Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/OptionsDisplay.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="OptionsDisplay" type="TextureRect"]
+self_modulate = Color( 1, 1, 1.2, 1 )
+margin_left = 33.061
+margin_top = 34.201
+margin_right = 803.061
+margin_bottom = 1384.2
+focus_mode = 2
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -239.17
+margin_top = 69.5421
+margin_right = 265.83
+margin_bottom = 148.542
+rect_pivot_offset = Vector2( 252.5, 39.5 )
+custom_fonts/font = SubResource( 1 )
+text = "[ Default Title ]"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = 160.0
+margin_right = -50.0
+margin_bottom = -40.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="focus_entered" from="." to="." method="_on_OptionsDisplay_focus_entered"]

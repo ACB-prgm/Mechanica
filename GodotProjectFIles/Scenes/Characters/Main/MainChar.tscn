@@ -645,7 +645,7 @@ nodes/Animation/node = SubResource( 7 )
 nodes/Animation/position = Vector2( -110, 140 )
 nodes/TimeScale/node = SubResource( 8 )
 nodes/TimeScale/position = Vector2( 110, 130 )
-node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
+node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
 
 [sub_resource type="AnimationNodeAnimation" id=10]
 animation = "walk"
@@ -658,7 +658,7 @@ nodes/Animation/node = SubResource( 10 )
 nodes/Animation/position = Vector2( -90, 140 )
 nodes/TimeScale/node = SubResource( 11 )
 nodes/TimeScale/position = Vector2( 140.825, 160 )
-node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
+node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
 
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "walk"
@@ -671,7 +671,7 @@ nodes/Animation/node = SubResource( 13 )
 nodes/Animation/position = Vector2( -230, 140 )
 nodes/TimeScale/node = SubResource( 14 )
 nodes/TimeScale/position = Vector2( 59.825, 154.667 )
-node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
+node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
 
 [sub_resource type="AnimationNodeAnimation" id=16]
 animation = "idle"
@@ -687,7 +687,7 @@ nodes/Animation/node = SubResource( 17 )
 nodes/Animation/position = Vector2( -130, 150 )
 nodes/TimeScale/node = SubResource( 18 )
 nodes/TimeScale/position = Vector2( 142.85, 201.254 )
-node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
+node_connections = [ "TimeScale", 0, "Animation", "output", 0, "TimeScale" ]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=20]
 blend_point_0/node = SubResource( 9 )
@@ -710,8 +710,8 @@ graph_offset = Vector2( 201.83, -474.517 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
-[sub_resource type="CircleShape2D" id=23]
-radius = 464.894
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 272.828, 145.562 )
 
 [node name="MainChar" type="KinematicBody2D"]
 collision_mask = 14
@@ -827,7 +827,6 @@ bus = "SoundEffects"
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-visible = false
 modulate = Color( 0, 0, 0, 0.423529 )
-position = Vector2( 0, -70 )
+position = Vector2( 0, 70 )
 shape = SubResource( 23 )

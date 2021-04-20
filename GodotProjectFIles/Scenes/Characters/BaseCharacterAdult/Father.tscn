@@ -9,14 +9,27 @@
 script = ExtResource( 2 )
 
 [node name="AnimatedSkeleton" parent="." index="1"]
-dialogue = [ "Well, good morning sunshine!", "Nice of you to join me.", "That mech over there needs to have it's AI's focus reset.", "Head over to the computer and give it a shot would ya?", [ "CHANGE_DIALOGUE", "Father_002" ] ]
 interactable = true
+
+[node name="BackFoot" parent="AnimatedSkeleton" index="0"]
+rotation = 0.0
 
 [node name="BackArm" parent="AnimatedSkeleton" index="1"]
 position = Vector2( 66, -19 )
 
+[node name="Torso" parent="AnimatedSkeleton" index="2"]
+position = Vector2( 0, 0 )
+rotation = 0.0
+
+[node name="Head" parent="AnimatedSkeleton" index="3"]
+position = Vector2( 10, -56 )
+rotation = 0.0
+
 [node name="FrontArm" parent="AnimatedSkeleton" index="4"]
 position = Vector2( -60, -32 )
+
+[node name="FrontFoot" parent="AnimatedSkeleton" index="5"]
+rotation = 0.0
 
 [node name="AnimationTree" parent="." index="3"]
 parameters/playback = SubResource( 1 )

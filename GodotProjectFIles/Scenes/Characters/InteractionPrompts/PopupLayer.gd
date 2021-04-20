@@ -6,7 +6,9 @@ onready var vbox = $Popup/VBoxContainer
 onready var titleLabel = $Popup/VBoxContainer/Title
 onready var bodyLabel = $Popup/VBoxContainer/Body
 onready var dialogueBox = $DialogueBox
+onready var mechEditor = $MechEditor
 
+var last_focused = null
 var current_dialogue
 var current_dialogue_playing: bool = false
 var dialogue_playing: bool = false
@@ -50,7 +52,7 @@ func display_dialogue(dialogue: Array, character=null) -> void:
 		# Exit dialogue when all finished and player interacts
 		current_dialogue_playing = false
 		dialogueBox._hide()
-		Globals.player.dialogue_freeze(false)
+		Globals.player.interaction_freeze(false)
 	
 	elif current_dialogue_playing:
 		# play next dialogue
@@ -69,7 +71,7 @@ func display_dialogue(dialogue: Array, character=null) -> void:
 	
 	else:
 		# start displaying dialogue
-		Globals.player.dialogue_freeze(true, character)
+		Globals.player.interaction_freeze(true, character)
 		if !dialogueBox.is_connected("dialogue_box_started", character, "_on_dialogue_box_started"):
 			dialogueBox.connect("dialogue_box_started", character, "_on_dialogue_box_started")
 			dialogueBox.connect("dialogue_box_finished", character, "_on_dialogue_box_finished")
@@ -81,3 +83,20 @@ func display_dialogue(dialogue: Array, character=null) -> void:
 
 func _on_DialogueBox_dialogue_box_finished():
 	dialogue_playing = false
+
+
+# MECH EDIOTR ——————————————————————————————————————————————————————————————————
+func _on_MechEditorComputer_accessed(interacting):
+	if interacting:
+		Globals.player.interaction_freeze(true)
+		mechEditor.start()
+	else:
+		Globals.player.interaction_freeze(false)
+		mechEditor.stop()
+
+
+
+
+
+
+

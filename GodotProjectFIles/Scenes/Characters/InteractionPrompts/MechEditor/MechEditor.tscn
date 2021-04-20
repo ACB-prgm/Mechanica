@@ -1,0 +1,459 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_line.png" type="Texture" id=1]
+[ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Border.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/FlickerLine.gd" type="Script" id=3]
+[ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Pixels.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/MechEditor.gd" type="Script" id=5]
+[ext_resource path="res://Images/Mechs/Mech_01/Mech_01_Front.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/MechTexture.gd" type="Script" id=7]
+[ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Background.png" type="Texture" id=8]
+[ext_resource path="res://Fonts/BioSans_Regular.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/Tab.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/TabButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/SymbolDisplay.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/OptionsDisplay.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Images/Popups/MechEditor/AIFocus/AIFocus_Symbol_Gundam.png" type="Texture" id=14]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/StatBuff.tscn" type="PackedScene" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Line"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Line:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 2160 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "boot_up"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.01, 0.01 ), Vector2( 1, 0.01 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Line")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_flicker"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("Buttons/AugmentTabButton")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "shut_down"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.01 ), Vector2( 0.01, 0.01 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Line")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop_flicker"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 96
+use_filter = true
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 96
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://Fonts/BioSans_Regular.otf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = SubResource( 6 )
+
+[sub_resource type="CanvasItemMaterial" id=8]
+blend_mode = 1
+
+[node name="MechEditorBackground" type="TextureRect"]
+modulate = Color( 1.1, 1.1, 1.1, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MechEditor" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1920, 1080 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="TextureRect" parent="MechEditor"]
+modulate = Color( 1, 1, 1.2, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1920, 1080 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MechEditor"]
+autoplay = "Line"
+anims/Line = SubResource( 1 )
+anims/boot_up = SubResource( 2 )
+anims/shut_down = SubResource( 3 )
+
+[node name="MechTexture" type="TextureRect" parent="MechEditor"]
+show_behind_parent = true
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -840.0
+margin_top = -500.0
+margin_right = -340.0
+margin_bottom = 500.0
+rect_pivot_offset = Vector2( 250, 500 )
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_texture = ExtResource( 6 )
+
+[node name="MechEditorLabel" type="Label" parent="MechEditor"]
+margin_left = 136.0
+margin_top = 148.0
+margin_right = 743.0
+margin_bottom = 267.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
+custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+custom_constants/shadow_as_outline = 1
+text = "Mech Editor"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="Control" parent="MechEditor"]
+margin_left = 142.0
+margin_top = 148.0
+margin_right = 3697.0
+margin_bottom = 267.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AugmentTabButton" parent="MechEditor/Buttons" instance=ExtResource( 11 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 810.0
+margin_top = -50.0
+margin_right = 1171.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 180.5, 50 )
+focus_neighbour_left = NodePath("../ConstructTabButton")
+focus_neighbour_right = NodePath("../FocusAITabButton")
+text = "Augment"
+
+[node name="FocusAITabButton" parent="MechEditor/Buttons" instance=ExtResource( 11 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 1494.0
+margin_top = -50.0
+margin_right = 1826.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 166, 50 )
+focus_neighbour_left = NodePath("../AugmentTabButton")
+focus_neighbour_right = NodePath("../ConstructTabButton")
+text = "Focus AI"
+tab_control = 2
+
+[node name="ConstructTabButton" parent="MechEditor/Buttons" instance=ExtResource( 11 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 2142.0
+margin_top = -50.0
+margin_right = 2573.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 215.5, 50 )
+focus_neighbour_left = NodePath("../FocusAITabButton")
+focus_neighbour_right = NodePath("../AugmentTabButton")
+text = "construct"
+tab_control = 3
+
+[node name="Tabs" type="Control" parent="MechEditor"]
+margin_left = 138.0
+margin_top = 300.0
+margin_right = 3703.0
+margin_bottom = 1722.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AugmentTab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
+
+[node name="FocusAITab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
+tab_control = 2
+
+[node name="SymbolDisplay" type="Control" parent="MechEditor/Tabs/FocusAITab"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -557.5
+margin_top = -693.0
+margin_right = 557.5
+margin_bottom = 693.0
+script = ExtResource( 12 )
+
+[node name="TitleLabel" type="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -557.5
+margin_top = 81.0
+margin_right = 557.5
+margin_bottom = 1386.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
+custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+custom_constants/shadow_as_outline = 1
+text = "Gundam"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+modulate = Color( 1, 1, 1.2, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -557.5
+margin_top = -693.0
+margin_right = 557.5
+margin_bottom = 693.0
+rect_pivot_offset = Vector2( 557, 693 )
+texture = ExtResource( 14 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionLabel" type="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -557.5
+margin_top = -1305.0
+margin_right = 557.5
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
+custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+custom_constants/shadow_as_outline = 1
+text = "Well-balanced warriors equipt for any situation."
+align = 1
+valign = 2
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuffsHBoxContainer" type="HBoxContainer" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -557.5
+margin_top = -255.465
+margin_right = 557.5
+margin_bottom = -158.465
+custom_constants/separation = 55
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
+margin_left = 447.0
+margin_top = 18.0
+margin_right = 530.0
+margin_bottom = 78.0
+_buff = 1.25
+_stat = "ATK"
+
+[node name="Label2" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
+margin_left = 585.0
+margin_top = 18.0
+margin_right = 668.0
+margin_bottom = 78.0
+_buff = 1.25
+_stat = "DEF"
+
+[node name="OptionsDisplay" parent="MechEditor/Tabs/FocusAITab" instance=ExtResource( 13 )]
+margin_top = 36.201
+margin_bottom = 1386.2
+focus_neighbour_top = NodePath("../../../Buttons/FocusAITabButton")
+title = "Focus options"
+options = PoolStringArray( "gundam", "tynker", "dreadnaut", "bulwark" )
+
+[node name="ConstructTab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
+tab_control = 3
+
+[node name="Line" type="TextureRect" parent="MechEditor"]
+modulate = Color( 1, 1, 1.1, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1920.0
+margin_top = -909.0
+margin_right = 1920.0
+margin_bottom = -859.0
+rect_pivot_offset = Vector2( 1920, 25 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pixels" type="TextureRect" parent="."]
+material = SubResource( 8 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1920, 1080 )
+mouse_filter = 2
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="TabButtonPressed" from="MechEditor/Buttons/AugmentTabButton" to="." method="_on_TabButtonPressed"]
+[connection signal="TabButtonPressed" from="MechEditor/Buttons/FocusAITabButton" to="." method="_on_TabButtonPressed"]
+[connection signal="TabButtonPressed" from="MechEditor/Buttons/ConstructTabButton" to="." method="_on_TabButtonPressed"]
+[connection signal="item_selected" from="MechEditor/Tabs/FocusAITab/OptionsDisplay" to="MechEditor/Tabs/FocusAITab/SymbolDisplay" method="_on_OptionsDisplay_item_selected"]

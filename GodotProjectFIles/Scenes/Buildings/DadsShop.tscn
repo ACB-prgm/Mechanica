@@ -9,13 +9,13 @@
 [ext_resource path="res://Images/Buildings/Dad'sShop/DadsShop_RoomInside.png" type="Texture" id=7]
 [ext_resource path="res://Images/Buildings/Dad'sShop/DadsShop_RoomExterior.png" type="Texture" id=8]
 [ext_resource path="res://Images/Buildings/Dad'sShop/DadsShop_DoorPost.png" type="Texture" id=9]
-[ext_resource path="res://Scenes/Characters/Main/MainChar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Characters/BaseCharacterAdult/Father.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Buildings/MechandComputer.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 525.923, 50.9141 )
 
-[node name="Node2D" type="Node2D"]
+[node name="DadsShop" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="DadsShop" type="StaticBody2D" parent="."]
@@ -40,6 +40,12 @@ texture = ExtResource( 5 )
 position = Vector2( -1.54077, 0 )
 texture = ExtResource( 8 )
 
+[node name="Position2D" type="Position2D" parent="DadsShop/Room"]
+position = Vector2( 1972.3, 250.469 )
+__meta__ = {
+"_gizmo_extents_": 150.0
+}
+
 [node name="Shop" type="Node2D" parent="DadsShop"]
 position = Vector2( 0, 170 )
 
@@ -52,6 +58,12 @@ texture = ExtResource( 9 )
 [node name="Inside_TopLayer" type="Sprite" parent="DadsShop/Shop"]
 z_index = 1
 texture = ExtResource( 4 )
+
+[node name="Position2D" type="Position2D" parent="DadsShop/Shop"]
+position = Vector2( -544.043, 723.449 )
+__meta__ = {
+"_gizmo_extents_": 150.0
+}
 
 [node name="Tween" type="Tween" parent="DadsShop"]
 playback_process_mode = 0
@@ -74,8 +86,8 @@ shape = SubResource( 1 )
 [node name="Father" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 434.456, 770.087 )
 
-[node name="MainChar" parent="YSort" instance=ExtResource( 10 )]
-position = Vector2( -544.756, 894.129 )
+[node name="StaticBody2D" parent="YSort" instance=ExtResource( 12 )]
+position = Vector2( -165.478, 227.493 )
 
 [connection signal="doorway_used" from="DadsShop/RoomDoorway" to="DadsShop" method="_on_RoomDoorway_doorway_used"]
 [connection signal="one_entered" from="DadsShop/RoomDoorway" to="DadsShop" method="_on_RoomDoorway_one_entered"]

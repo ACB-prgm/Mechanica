@@ -2,7 +2,7 @@ extends EditorInspectorPlugin
 
 
 func can_handle(object):
-	return true
+	return object is Node
 
 func parse_begin(object):
 	if object.has_method("_on_dialogue_option_selected"):

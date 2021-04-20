@@ -15,6 +15,7 @@ signal dialogue_box_started
 
 func _ready():
 	rect_scale = Vector2.ZERO
+	show()
 
 
 func play_dialogue(dialogue: String) -> void:
