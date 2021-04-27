@@ -4,16 +4,11 @@ class_name KeepCenteredProperty
 
 var checkbox = CheckBox.new()
 var edited_control = null
-var current_value = false
+var has_refreshed = false
 
 
 func _init():
-#	var container = HBoxContainer.new()
-#	add_child(container)
-#
-#	var _label = Label.new()
-#	_label.text = "Keep Centered"
-#	container.add_child(_label)
+	set_physics_process(false)
 	label = "Keep Pivot Offset Centered"
 	
 	checkbox.connect("toggled", self, "_on_checkbox_checked")
@@ -22,7 +17,6 @@ func _init():
 
 func _on_checkbox_checked(is_checked):
 	edited_control = get_edited_object()
-	current_value = is_checked
 	emit_changed("Keep_Centered", is_checked)
 	set_physics_process(is_checked)
 
@@ -32,10 +26,12 @@ func _physics_process(delta):
 		edited_control.rect_size = Vector2(0,0)
 
 
-#func update_property():
-#	var new_value = get_edited_object()[get_edited_property()]
-#	if (new_value == current_value):
-#		return
-#
-#	current_value = new_value
-#	checkbox.set_pressed(current_value)
+func update_property():
+	if !has_refreshed:
+		has_refreshed = true
+		
+		edited_control = get_edited_object()
+		if edited_control:
+			if edited_control[get_edited_property()] == edited_control.rect_size/2.0: #pivot offset is centered
+				set_physics_process(true)
+				checkbox.set_pressed(true)

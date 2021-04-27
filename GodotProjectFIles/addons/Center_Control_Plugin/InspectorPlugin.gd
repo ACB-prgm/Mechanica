@@ -1,12 +1,7 @@
 extends EditorInspectorPlugin
 
 
-var controls = {}
-
-
 func can_handle(object):
-#	if object.has_method("_print"):
-#		object._print(object.get_property_list())
 	return object is Control
 
 

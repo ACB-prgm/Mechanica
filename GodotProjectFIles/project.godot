@@ -53,7 +53,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "dialogue_plugin" )
+enabled=PoolStringArray( "res://addons/Center_Control_Plugin/plugin.cfg", "res://addons/dialogue_plugin/plugin.cfg" )
 
 [importer_defaults]
 
