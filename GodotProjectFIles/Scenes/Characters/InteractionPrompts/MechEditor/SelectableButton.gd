@@ -1,8 +1,8 @@
 tool
 extends Label
 
-const GLOW_COLOR = Color(1, 1, 1.2, 1.2)
-const REG_COLOR = Color(1, 1, 1.2, 1.15)
+const GLOW_COLOR = Color(1, 1, 1.1, 1)
+const REG_COLOR = Color(1, 1, 1, 1)
 const CURSOR_START_POS = Vector2(-10, 6)
 
 onready var cursor = $TextureRect

@@ -25,6 +25,7 @@ margin_top = -69.1676
 margin_right = -20.2173
 margin_bottom = -55.1676
 rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 20.5, 7 )
 text = "Area 2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -41,9 +42,10 @@ shape = SubResource( 2 )
 [node name="One_Label" type="Label" parent="Area1"]
 margin_left = -59.3623
 margin_top = 31.2712
-margin_right = -19.3623
+margin_right = -22.3623
 margin_bottom = 45.2712
 rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 18.5, 7 )
 text = "Area1"
 __meta__ = {
 "_edit_use_anchors_": false

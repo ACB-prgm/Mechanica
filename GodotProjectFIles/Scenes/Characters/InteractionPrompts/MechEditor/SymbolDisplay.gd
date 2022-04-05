@@ -1,4 +1,4 @@
-extends Control
+extends VBoxContainer
 
 
 const BULWARK_DESCRIPTION = "Defensive specialists built to protect and endure."

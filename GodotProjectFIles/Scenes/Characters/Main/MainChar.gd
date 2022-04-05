@@ -9,6 +9,7 @@ onready var animTree = $AnimationTree
 onready var animState = animTree.get("parameters/playback")
 onready var animSkeleton = $AnimatedSkeleton
 onready var footstep_sound = $Sounds/Footstep
+onready var dustkick_spawnpos = $AnimatedSkeleton/DustKickPosition2D
 onready var SOUNDS = {
 	"FOOTSTEP": {
 		"player": footstep_sound,
@@ -17,7 +18,7 @@ onready var SOUNDS = {
 	}
 }
 
-export var facing_left: bool = false
+export var facing_left: bool = true
 
 var dustKick = preload("res://Scenes/Characters/Main/DustKick.tscn")
 var input_vector: Vector2 = Vector2.ZERO
@@ -62,8 +63,8 @@ func movement():
 func spawn_dustKick() -> void:
 	var dir = animSkeleton.scale.x
 	var ins_dust = dustKick.instance()
-	ins_dust.global_position = to_global(Vector2(-75 * dir, 130))
-	ins_dust.dir = input_vector
+	ins_dust.global_position = dustkick_spawnpos.global_position
+#	ins_dust.dir = input_vector
 	ins_dust.scale.x = dir
 	get_parent().add_child(ins_dust)
 

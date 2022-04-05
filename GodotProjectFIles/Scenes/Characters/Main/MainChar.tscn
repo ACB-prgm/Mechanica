@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scenes/Characters/Main/MainChar.gd" type="Script" id=1]
 [ext_resource path="res://Images/MainChar/Eyebrows.png" type="Texture" id=2]
 [ext_resource path="res://Images/MainChar/MainChar_03.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/DialogueBlip_01.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Scenes/Characters/Shadow.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 54.6916
@@ -314,7 +315,7 @@ length = 0.25
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSkeleton:scale")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -326,7 +327,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:facing_left")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -716,17 +717,24 @@ extents = Vector2( 272.828, 145.562 )
 [node name="MainChar" type="KinematicBody2D"]
 collision_mask = 14
 script = ExtResource( 1 )
-facing_left = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 modulate = Color( 0, 1, 1, 0.545098 )
 position = Vector2( 0, 100 )
 rotation = 1.5708
 z_index = 1
 shape = SubResource( 1 )
 
+[node name="Shadow" parent="." instance=ExtResource( 5 )]
+
 [node name="AnimatedSkeleton" type="Node2D" parent="."]
 scale = Vector2( -1, 1 )
+
+[node name="DustKickPosition2D" type="Position2D" parent="AnimatedSkeleton"]
+position = Vector2( -75, 120 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
 
 [node name="BackFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 44.123, 5.51239 )
@@ -757,18 +765,18 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 258, 286 )
 
 [node name="LeftEyebrow" type="Sprite" parent="AnimatedSkeleton/Head"]
-position = Vector2( -17, -97 )
+position = Vector2( -13, -94 )
 rotation = 0.0872665
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 0, 50, 60, 10 )
+region_rect = Rect2( 0, 30, 60, 30 )
 
 [node name="RightEyebrow" type="Sprite" parent="AnimatedSkeleton/Head"]
-position = Vector2( 74, -97 )
+position = Vector2( 70, -94 )
 rotation = -0.0872665
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 0, 50, 60, 10 )
+region_rect = Rect2( 0, 30, 60, 30 )
 
 [node name="FrontArm" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( -60, -32 )
@@ -824,6 +832,7 @@ pitch_scale = 0.8
 bus = "SoundEffects"
 
 [node name="InteractionArea" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]

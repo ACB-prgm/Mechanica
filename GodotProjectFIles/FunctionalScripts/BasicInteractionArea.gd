@@ -17,7 +17,6 @@ func area_radius_set(new_value):
 	$CollisionShape2D.shape.radius = new_value
 
 
-
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		emit_signal("interaction", true)

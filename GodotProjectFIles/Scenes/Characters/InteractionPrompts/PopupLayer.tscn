@@ -25,7 +25,6 @@ font_data = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Popup" type="TextureRect" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -86,9 +85,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DialogueBox" parent="." instance=ExtResource( 4 )]
-visible = false
-
 [node name="MechEditor" parent="." instance=ExtResource( 5 )]
+
+[node name="DialogueBox" parent="." instance=ExtResource( 4 )]
 
 [connection signal="dialogue_box_finished" from="DialogueBox" to="." method="_on_DialogueBox_dialogue_box_finished"]

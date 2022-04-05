@@ -17,5 +17,5 @@ z_index = -1
 shape = SubResource( 1 )
 
 [node name="InteractionPrompt" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -42.7124 )
-scale = Vector2( -0.0485828, 1 )
+position = Vector2( 0, -37.8239 )
+scale = Vector2( -0.585493, 1 )

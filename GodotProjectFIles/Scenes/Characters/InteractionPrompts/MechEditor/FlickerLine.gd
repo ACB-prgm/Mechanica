@@ -1,6 +1,8 @@
 extends TextureRect
 
 
+export var flicker = true
+
 var movement_speed = 5
 var start_pos_y = 0
 var end_pos_y = 2160
@@ -28,8 +30,9 @@ func _physics_process(_delta):
 
 
 func start_flicker():
-	show()
-	set_physics_process(true)
+	if flicker:
+		show()
+		set_physics_process(true)
 
 
 func stop_flicker():

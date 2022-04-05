@@ -20,6 +20,7 @@ func _on_checkbox_checked(is_checked):
 	emit_changed("Keep_Centered", is_checked)
 	set_physics_process(is_checked)
 
+
 func _physics_process(delta):
 	if edited_control:
 		edited_control.rect_pivot_offset = edited_control.rect_size/2.0

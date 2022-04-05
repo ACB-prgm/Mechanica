@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_line.png" type="Texture" id=1]
 [ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Border.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/FlickerLine.gd" type="Script" id=3]
-[ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Pixels.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/MechEditor.gd" type="Script" id=5]
 [ext_resource path="res://Images/Mechs/Mech_01/Mech_01_Front.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/MechTexture.gd" type="Script" id=7]
@@ -15,6 +14,8 @@
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/OptionsDisplay.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Images/Popups/MechEditor/AIFocus/AIFocus_Symbol_Gundam.png" type="Texture" id=14]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/StatBuff.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/hologram_lines-b1399a8d.png" type="Texture" id=16]
+[ext_resource path="res://Scenes/Singletons/GlowWorldEnvironment.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Line"
@@ -164,6 +165,8 @@ font_data = ExtResource( 9 )
 size = 96
 font_data = ExtResource( 9 )
 
+[sub_resource type="StyleBoxEmpty" id=11]
+
 [sub_resource type="DynamicFontData" id=6]
 font_path = "res://Fonts/BioSans_Regular.otf"
 
@@ -171,13 +174,59 @@ font_path = "res://Fonts/BioSans_Regular.otf"
 size = 48
 font_data = SubResource( 6 )
 
-[sub_resource type="CanvasItemMaterial" id=8]
+[sub_resource type="CanvasItemMaterial" id=12]
 blend_mode = 1
 
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+uniform vec4 baseColor: hint_color = vec4(0.3058, 0.835, 0.960, 1.);
+uniform float speed = 0.5;
+uniform vec4 linesColor: hint_color = vec4(0.633232, 0.910156, 0.555693, 1.);
+uniform float linesColorIntensity = 5.;
+uniform sampler2D hologramTexture;
+uniform vec2 hologramTextureTiling = vec2(1., 5.);
+
+vec2 tilingAndOffset(vec2 uv, vec2 tiling, vec2 offset) {
+    return mod(uv * tiling + offset, 1);
+}
+
+void fragment() {
+    vec2 offset = vec2(TIME * speed / 100.0);
+    vec2 tiling = tilingAndOffset(SCREEN_UV, hologramTextureTiling, offset);
+    
+    vec4 noise = texture(hologramTexture, tiling);
+    
+    float fresnel = 0.71;
+    vec4 colorLines = linesColor * vec4(vec3(linesColorIntensity), 1.0);
+    vec4 emission = colorLines * fresnel * noise;
+    
+    vec4 albedo = baseColor;
+    float alpha = dot(noise.rgb, vec3(1.0));
+    vec4 hologram;
+    hologram.rgb = emission.rgb + (1.0 - emission.rgb) * albedo.rgb * albedo.a;
+    hologram.a = emission.a + (1.0 - emission.a) * alpha;
+    hologram.a = hologram.a + (1.0 - hologram.a) * albedo.a;
+    COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
+    COLOR.rgb = COLOR.rgb + (1.0 - COLOR.rgb) * hologram.rgb;
+    COLOR.a = min(COLOR.a, hologram.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/baseColor = Color( 0.337255, 0.411765, 0.729412, 0 )
+shader_param/speed = 5.0
+shader_param/linesColor = Color( 0.337255, 0.411765, 0.729412, 0 )
+shader_param/linesColorIntensity = 0.1
+shader_param/hologramTextureTiling = Vector2( 1, 4 )
+shader_param/hologramTexture = ExtResource( 16 )
+
 [node name="MechEditorBackground" type="TextureRect"]
-modulate = Color( 1.1, 1.1, 1.1, 1 )
+modulate = Color( 1.07, 1.07, 1.07, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1920, 1080 )
 texture = ExtResource( 8 )
 script = ExtResource( 5 )
 __meta__ = {
@@ -187,6 +236,7 @@ __meta__ = {
 [node name="MechEditor" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 3840, 2160 )
 rect_pivot_offset = Vector2( 1920, 1080 )
 expand = true
 stretch_mode = 1
@@ -198,6 +248,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1.2, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 3840, 2160 )
 rect_pivot_offset = Vector2( 1920, 1080 )
 texture = ExtResource( 2 )
 expand = true
@@ -207,7 +258,6 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MechEditor"]
-autoplay = "Line"
 anims/Line = SubResource( 1 )
 anims/boot_up = SubResource( 2 )
 anims/shut_down = SubResource( 3 )
@@ -218,9 +268,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -840.0
+margin_left = -692.0
 margin_top = -500.0
-margin_right = -340.0
+margin_right = -192.0
 margin_bottom = 500.0
 rect_pivot_offset = Vector2( 250, 500 )
 texture = ExtResource( 6 )
@@ -235,6 +285,7 @@ margin_left = 136.0
 margin_top = 148.0
 margin_right = 743.0
 margin_bottom = 267.0
+rect_pivot_offset = Vector2( 303.5, 59.5 )
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
 custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
@@ -296,37 +347,53 @@ text = "construct"
 tab_control = 3
 
 [node name="Tabs" type="Control" parent="MechEditor"]
+use_parent_material = true
 margin_left = 138.0
 margin_top = 300.0
-margin_right = 3703.0
-margin_bottom = 1722.0
+margin_right = 138.0
+margin_bottom = 300.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AugmentTab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
-
-[node name="FocusAITab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
+margin_right = 3560.0
+margin_bottom = 1420.0
+rect_min_size = Vector2( 3560, 1420 )
+rect_pivot_offset = Vector2( 1780, 710 )
 tab_control = 2
 
-[node name="SymbolDisplay" type="Control" parent="MechEditor/Tabs/FocusAITab"]
+[node name="FocusAITab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
+use_parent_material = true
+margin_right = 3560.0
+margin_bottom = 1420.0
+rect_min_size = Vector2( 3560, 1420 )
+rect_pivot_offset = Vector2( 1780, 710 )
+tab_control = 2
+
+[node name="SymbolDisplay" type="VBoxContainer" parent="MechEditor/Tabs/FocusAITab"]
+use_parent_material = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -557.5
-margin_top = -693.0
-margin_right = 557.5
-margin_bottom = 693.0
+margin_left = -526.78
+margin_top = -691.378
+margin_right = 673.22
+margin_bottom = 658.622
+rect_min_size = Vector2( 0, 1350 )
+rect_pivot_offset = Vector2( 600, 675 )
+alignment = 1
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TitleLabel" type="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -557.5
-margin_top = 81.0
-margin_right = 557.5
-margin_bottom = 1386.0
+margin_top = 30.0
+margin_right = 1200.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 400, 0 )
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
 custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
@@ -342,29 +409,52 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
 modulate = Color( 1, 1, 1.2, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -557.5
-margin_top = -693.0
-margin_right = 557.5
-margin_bottom = 693.0
-rect_pivot_offset = Vector2( 557, 693 )
+use_parent_material = true
+margin_top = 153.0
+margin_right = 1200.0
+margin_bottom = 1103.0
 texture = ExtResource( 14 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BuffsHBoxContainer" type="HBoxContainer" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+margin_top = 1107.0
+margin_right = 1200.0
+margin_bottom = 1167.0
+custom_constants/separation = 55
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
+margin_left = 489.0
+margin_right = 572.0
+rect_pivot_offset = Vector2( 41.5, 30 )
+_buff = 1.25
+_stat = "ATK"
+
+[node name="Label2" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
+margin_left = 627.0
+margin_right = 710.0
+rect_pivot_offset = Vector2( 41.5, 30 )
+_buff = 1.25
+_stat = "DEF"
+
+[node name="HSeparator" type="HSeparator" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
+margin_top = 1171.0
+margin_right = 1200.0
+margin_bottom = 1193.0
+custom_styles/separator = SubResource( 11 )
+custom_constants/separation = 22
+
 [node name="DescriptionLabel" type="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -557.5
-margin_top = -1305.0
-margin_right = 557.5
+margin_top = 1197.0
+margin_right = 1200.0
+margin_bottom = 1320.0
+rect_min_size = Vector2( 1200, 0 )
 custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
 custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
@@ -380,57 +470,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BuffsHBoxContainer" type="HBoxContainer" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -557.5
-margin_top = -255.465
-margin_right = 557.5
-margin_bottom = -158.465
-custom_constants/separation = 55
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
-margin_left = 447.0
-margin_top = 18.0
-margin_right = 530.0
-margin_bottom = 78.0
-_buff = 1.25
-_stat = "ATK"
-
-[node name="Label2" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay/BuffsHBoxContainer" instance=ExtResource( 15 )]
-margin_left = 585.0
-margin_top = 18.0
-margin_right = 668.0
-margin_bottom = 78.0
-_buff = 1.25
-_stat = "DEF"
-
 [node name="OptionsDisplay" parent="MechEditor/Tabs/FocusAITab" instance=ExtResource( 13 )]
+use_parent_material = true
 margin_top = 36.201
 margin_bottom = 1386.2
+rect_min_size = Vector2( 770, 1350 )
+rect_pivot_offset = Vector2( 385, 675 )
 focus_neighbour_top = NodePath("../../../Buttons/FocusAITabButton")
 title = "Focus options"
 options = PoolStringArray( "gundam", "tynker", "dreadnaut", "bulwark" )
 
 [node name="ConstructTab" parent="MechEditor/Tabs" instance=ExtResource( 10 )]
-tab_control = 3
+margin_right = 3560.0
+margin_bottom = 1420.0
+rect_min_size = Vector2( 3560, 1420 )
+rect_pivot_offset = Vector2( 1780, 710 )
+tab_control = 2
 
 [node name="Line" type="TextureRect" parent="MechEditor"]
-modulate = Color( 1, 1, 1.1, 1 )
+modulate = Color( 1, 1, 1, 0.560784 )
+material = SubResource( 12 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -1920.0
-margin_top = -909.0
+margin_top = -1130.0
 margin_right = 1920.0
-margin_bottom = -859.0
+margin_bottom = -1080.0
 rect_pivot_offset = Vector2( 1920, 25 )
 texture = ExtResource( 1 )
 expand = true
@@ -439,16 +506,21 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+flicker = false
 
-[node name="Pixels" type="TextureRect" parent="."]
-material = SubResource( 8 )
+[node name="GlowWorldEnvironment" parent="MechEditor" instance=ExtResource( 17 )]
+
+[node name="HologramSHader" type="ColorRect" parent="."]
+material = SubResource( 10 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 3.06079
+margin_top = 2.97906
+margin_right = 3.06079
+margin_bottom = 2.979
+rect_min_size = Vector2( 3840, 2160 )
 rect_pivot_offset = Vector2( 1920, 1080 )
 mouse_filter = 2
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

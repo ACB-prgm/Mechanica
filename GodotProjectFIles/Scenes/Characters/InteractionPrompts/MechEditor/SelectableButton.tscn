@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/SelectableButton.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/BioSans_Regular.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://Images/Popups/MechEditor/CURSOR.png" type="Texture" id=3]
+[ext_resource path="res://Images/Popups/MechEditor/ArrowGeneric.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -20,7 +20,7 @@ loop = true
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextureRect:rect_position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -61,12 +61,11 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1.2, 1 )
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -25.7556
+margin_left = -30.7005
 margin_top = -24.0
-margin_right = 22.2444
+margin_right = 17.2995
 margin_bottom = 38.0
 rect_rotation = 90.0
 texture = ExtResource( 3 )
