@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Images/Characters/Father.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Characters/Shadow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Images/Characters/BasicShadow.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Characters/BaseCharacterAdult/BaseCharacterAdult_AnimSkel.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -880,12 +880,11 @@ graph_offset = Vector2( 597.83, -391.237 )
 [node name="KinematicBody2D" type="KinematicBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 2.10971, 108.649 )
 rotation = 1.5708
 z_index = 1
 shape = SubResource( 1 )
-
-[node name="Shadow" parent="." instance=ExtResource( 2 )]
 
 [node name="AnimatedSkeleton" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -893,15 +892,21 @@ dialogue = [ "Well, good morning sunshine!", "Nice of you to join me!", "That me
 _texture = ExtResource( 1 )
 dialogue_key_idx = 0
 
+[node name="Sprite" type="Sprite" parent="AnimatedSkeleton"]
+position = Vector2( 12, 132.13 )
+scale = Vector2( 0.724954, 0.208161 )
+texture = ExtResource( 2 )
+
 [node name="BackFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 64, 108 )
+rotation = 0.0207018
 texture = ExtResource( 1 )
 offset = Vector2( -20, -12 )
 region_enabled = true
 region_rect = Rect2( 92, 374, 108, 74 )
 
 [node name="BackArm" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( 66, -19 )
+position = Vector2( 66.7117, -19.2372 )
 rotation = -0.523599
 scale = Vector2( -1, 1 )
 texture = ExtResource( 1 )
@@ -910,12 +915,15 @@ region_enabled = true
 region_rect = Rect2( 364, 360, 64, 108 )
 
 [node name="Torso" type="Sprite" parent="AnimatedSkeleton"]
+position = Vector2( 0.711677, -0.237226 )
+rotation = -0.00517546
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 304, 72, 173, 188 )
 
 [node name="Head" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( 10, -56 )
+position = Vector2( 10.7117, -56.2372 )
+rotation = -0.00517546
 texture = ExtResource( 1 )
 offset = Vector2( -9.5, -120.57 )
 region_enabled = true
@@ -934,7 +942,7 @@ region_enabled = true
 region_rect = Rect2( 249, 321, 45, 15 )
 
 [node name="FrontArm" type="Sprite" parent="AnimatedSkeleton"]
-position = Vector2( -60, -32 )
+position = Vector2( -59.5256, -32 )
 rotation = 0.349066
 texture = ExtResource( 1 )
 offset = Vector2( 0.3, 32.756 )
@@ -943,6 +951,7 @@ region_rect = Rect2( 364, 360, 64, 108 )
 
 [node name="FrontFoot" type="Sprite" parent="AnimatedSkeleton"]
 position = Vector2( 12, 126 )
+rotation = 0.0207018
 texture = ExtResource( 1 )
 offset = Vector2( -20, -12 )
 region_enabled = true

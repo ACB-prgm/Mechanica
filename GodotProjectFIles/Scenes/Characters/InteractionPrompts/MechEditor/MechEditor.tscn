@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_line.png" type="Texture" id=1]
 [ext_resource path="res://Images/Popups/MechEditor/ComputerScreen_Border.png" type="Texture" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://Images/Popups/MechEditor/AIFocus/AIFocus_Symbol_Gundam.png" type="Texture" id=14]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/StatBuff.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/Characters/InteractionPrompts/MechEditor/hologram_lines-b1399a8d.png" type="Texture" id=16]
-[ext_resource path="res://Scenes/Singletons/GlowWorldEnvironment.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Line"
@@ -165,19 +164,19 @@ font_data = ExtResource( 9 )
 size = 96
 font_data = ExtResource( 9 )
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=7]
 font_path = "res://Fonts/BioSans_Regular.otf"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 48
-font_data = SubResource( 6 )
+font_data = SubResource( 7 )
 
-[sub_resource type="CanvasItemMaterial" id=12]
+[sub_resource type="CanvasItemMaterial" id=9]
 blend_mode = 1
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=10]
 code = "shader_type canvas_item;
 
 uniform vec4 baseColor: hint_color = vec4(0.3058, 0.835, 0.960, 1.);
@@ -213,8 +212,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
 shader_param/baseColor = Color( 0.337255, 0.411765, 0.729412, 0 )
 shader_param/speed = 5.0
 shader_param/linesColor = Color( 0.337255, 0.411765, 0.729412, 0 )
@@ -447,7 +446,7 @@ _stat = "DEF"
 margin_top = 1171.0
 margin_right = 1200.0
 margin_bottom = 1193.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 6 )
 custom_constants/separation = 22
 
 [node name="DescriptionLabel" type="Label" parent="MechEditor/Tabs/FocusAITab/SymbolDisplay"]
@@ -455,7 +454,7 @@ margin_top = 1197.0
 margin_right = 1200.0
 margin_bottom = 1320.0
 rect_min_size = Vector2( 1200, 0 )
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 1, 0.894118, 1 )
 custom_colors/font_color_shadow = Color( 0.376471, 0.54902, 0.678431, 1 )
 custom_constants/shadow_offset_x = 2
@@ -489,7 +488,7 @@ tab_control = 2
 
 [node name="Line" type="TextureRect" parent="MechEditor"]
 modulate = Color( 1, 1, 1, 0.560784 )
-material = SubResource( 12 )
+material = SubResource( 9 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -508,10 +507,8 @@ __meta__ = {
 }
 flicker = false
 
-[node name="GlowWorldEnvironment" parent="MechEditor" instance=ExtResource( 17 )]
-
 [node name="HologramSHader" type="ColorRect" parent="."]
-material = SubResource( 10 )
+material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.06079

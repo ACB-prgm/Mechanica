@@ -4,7 +4,7 @@
 [ext_resource path="res://Images/MainChar/Eyebrows.png" type="Texture" id=2]
 [ext_resource path="res://Images/MainChar/MainChar_03.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/DialogueBlip_01.mp3" type="AudioStream" id=4]
-[ext_resource path="res://Scenes/Characters/Shadow.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Images/Characters/BasicShadow.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 54.6916
@@ -726,10 +726,13 @@ rotation = 1.5708
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Shadow" parent="." instance=ExtResource( 5 )]
-
 [node name="AnimatedSkeleton" type="Node2D" parent="."]
 scale = Vector2( -1, 1 )
+
+[node name="Sprite" type="Sprite" parent="AnimatedSkeleton"]
+position = Vector2( 12, 127.309 )
+scale = Vector2( 0.724954, 0.205464 )
+texture = ExtResource( 5 )
 
 [node name="DustKickPosition2D" type="Position2D" parent="AnimatedSkeleton"]
 position = Vector2( -75, 120 )
